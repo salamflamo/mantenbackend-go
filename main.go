@@ -12,6 +12,9 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"net/http"
 	"time"
+	"github.com/joho/godotenv"
+	"log"
+	"os"
 )
 
 type Tamu struct {
@@ -75,9 +78,15 @@ func GetTamuEp(response http.ResponseWriter, request *http.Request)  {
 }
 
 func main()  {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	mongouser := os.Getenv("MONGO_USER")
+	mongopass := os.Getenv("MONGO_PASS")
 	fmt.Print("Running on *:8080")
 	ctx, _ := context.WithTimeout(context.Background(),10*time.Second)
-	clientOptions := options.Client().ApplyURI("mongodb+srv://mantenan:mantenan@db-0-7yvm4.mongodb.net/test?retryWrites=true&w=majority")
+	clientOptions := options.Client().ApplyURI("mongodb+srv://"+mongouser+":"+mongopass+"@db-0-7yvm4.mongodb.net/test?retryWrites=true&w=majority")
 	client,_= mongo.Connect(ctx, clientOptions)
 	router := mux.NewRouter()
 	router.HandleFunc("/tamu",CreateTamuEp).Methods("POST")
