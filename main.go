@@ -84,9 +84,10 @@ func main()  {
 	}
 	mongouser := os.Getenv("MONGO_USER")
 	mongopass := os.Getenv("MONGO_PASS")
+	mongohost := os.Getenv("MONGO_HOST")
 	fmt.Print("Running on *:8080")
 	ctx, _ := context.WithTimeout(context.Background(),10*time.Second)
-	clientOptions := options.Client().ApplyURI("mongodb+srv://"+mongouser+":"+mongopass+"@db-0-7yvm4.mongodb.net/test?retryWrites=true&w=majority")
+	clientOptions := options.Client().ApplyURI("mongodb+srv://"+mongouser+":"+mongopass+"@"+mongohost+"/?retryWrites=true&w=majority")
 	client,_= mongo.Connect(ctx, clientOptions)
 	router := mux.NewRouter()
 	router.HandleFunc("/tamu",CreateTamuEp).Methods("POST")
