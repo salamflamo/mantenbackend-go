@@ -8,6 +8,6 @@ WORKDIR /app
 COPY . .
 
 RUN go get -v -d ./
-RUN build -v ./
+RUN build ./
 
 CMD ["app"]
