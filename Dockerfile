@@ -8,6 +8,7 @@ WORKDIR /app
 COPY . .
 
 RUN go get -v -d ./
-RUN go build ./
+RUN go install ./
 
+EXPOSE 8080
 CMD ["app"]
