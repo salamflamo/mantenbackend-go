@@ -7,7 +7,7 @@ ENV MONGO_HOST $host
 WORKDIR /app
 COPY . .
 
-RUN go get -v -d ./...
-RUN install -v ./...
+RUN go get -v -d ./
+RUN build -v ./
 
 CMD ["app"]

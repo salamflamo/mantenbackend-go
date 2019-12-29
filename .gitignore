@@ -1,3 +1,5 @@
 *.exe
 .idea/*
 .env
+*.exe
+app
